@@ -1,13 +1,15 @@
 public class  DictionaryEntry {
     private String word;
-    private String partOfSpeech;
+    private PartOfSpeech partOfSpeech;
     private String definition;
 
     DictionaryEntry() {
-
+        this.word = "";
+        this.partOfSpeech = null;
+        this.definition = "";
     }
 
-    DictionaryEntry(String word, String partOfSpeech, String definition) {
+    DictionaryEntry(String word, PartOfSpeech partOfSpeech, String definition) {
         this.word = word;
         this.partOfSpeech = partOfSpeech;
         this.definition = definition;
@@ -18,7 +20,7 @@ public class  DictionaryEntry {
     }
 
     public String getPartOfSpeech() {
-        return partOfSpeech;
+        return partOfSpeech.toString();
     }
 
     public String getDefinition() {
@@ -26,6 +28,6 @@ public class  DictionaryEntry {
     }
 
     public String toString() {
-        return word + " " + "[" + partOfSpeech + "]" + " " + definition;
+        return word + " " + "[" + partOfSpeech + "]" + " : " + definition;
     }
 }
