@@ -1,18 +1,17 @@
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MyDictionary {
-    private final Map<String, List<DictionaryEntry>> map = new HashMap<String, List<DictionaryEntry>>();
+    private final HashMap<String, DictionaryEntry> myDictionary = new HashMap<String, DictionaryEntry>();
 
     MyDictionary() {
         loadData();
     }
 
     public void loadData(){
-
-        return;
+        for(DataSource data : DataSource.values()){
+            myDictionary.put(data.getWord(), new DictionaryEntry(data.toEntry()));
+        }
     }
-
-
 }

@@ -13,6 +13,18 @@ public enum DataSource{
         this.definition = definition;
     }
 
+    public String getWord() {
+        return this.word;
+    }
+
+    public PartOfSpeech getPartOfSpeech() {
+        return this.partOfSpeech;
+    }
+
+    public String getDefinition() {
+        return this.definition;
+    }
+
     public DictionaryEntry toEntry() {
         return new DictionaryEntry(word, partOfSpeech, definition);
     }
