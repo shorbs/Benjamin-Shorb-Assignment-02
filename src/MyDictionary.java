@@ -1,17 +1,31 @@
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class MyDictionary {
-    private final HashMap<String, DictionaryEntry> myDictionary = new HashMap<String, DictionaryEntry>();
+    private final Map<String, List<DictionaryEntry>> myDictionary = new HashMap<>();
+
+    private final List<String>{}
+
 
     MyDictionary() {
-        loadData();
+        loadDictionary();
     }
 
-    public void loadData(){
-        for(DataSource data : DataSource.values()){
-            myDictionary.put(data.getWord(), new DictionaryEntry(data.toEntry()));
+    public void loadDictionary(){
+    }
+
+    public void runInterface(){
+        int i = 0;
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equals("exit")) {
+                break;
+            }
         }
     }
 }
