@@ -9,11 +9,27 @@ public class MyDictionary {
             "quit"
     ));
 
-    MyDictionary() {
-        loadDictionary();
-    }
+    private int keyWords = 0;
+    private int definitions = 0;
+
+    MyDictionary() {}
 
     public void loadDictionary() {
+        for(DataSource data : DataSource.values()) {
+            DictionaryEntry e = new DictionaryEntry(data.toEntry());
+            if(!myDictionary.containsKey(e.getWord())) {
+                myDictionary.put(e.getWord(), new ArrayList<>());
+                keyWords++;
+            }
+            myDictionary.get(e.getWord()).add(e);
+            definitions++;
+        }
+        //Sort
+        for(String key : myDictionary.keySet()) {
+            myDictionary.get(key).sort(Comparator.comparing(
+                    entry -> entry.getWord() + entry.getPartOfSpeech().toString() + entry.getDefinition()
+            ));
+        }
     }
 
     public void runInterface() {
@@ -24,8 +40,8 @@ public class MyDictionary {
         System.out.println("! Loading completed...");
         System.out.println();
         System.out.println("===== DICTIONARY 340 JAVA =====");
-        System.out.println("----- Keywords: " + myDictionary.size());
-        System.out.println("----- Definitions: " + "TO BE IMPLEMENTED");
+        System.out.println("----- Keywords: " + keyWords);
+        System.out.println("----- Definitions: " + definitions);
         System.out.println();
 
         Scanner scanner = new Scanner(System.in);
@@ -36,15 +52,24 @@ public class MyDictionary {
             if (exits.contains(input.toLowerCase())) {
                 break;
             }
-            if (input.equalsIgnoreCase("!help") || input.equalsIgnoreCase("")) {
+            if (input.equalsIgnoreCase("!help") || input.isBlank()) {
                 displayHowTo();
             } else {
                 List<String> parameters = getParameters(input);
+
             }
             i++;
         }
         System.out.println("\n -----THANK YOU-----");
     }
+
+    private boolean queryDictionary(List<String> parameters) {
+        if(parameters.size() > 0){
+
+        }
+        return false;
+    }
+
 
     //IMPLEMENT GET PARAMETERS METHOD
     private List<String> getParameters(String input) {
@@ -107,7 +132,6 @@ public class MyDictionary {
         if (tokens.length > 4) {
             displayHowTo();
         }
-
         if (partOfSpeech != null) {
             parameters.add(partOfSpeech);
         }

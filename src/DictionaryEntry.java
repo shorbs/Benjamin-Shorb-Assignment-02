@@ -28,6 +28,6 @@ public class  DictionaryEntry {
     }
 
     public String toString() {
-        return word + " " + "[" + partOfSpeech + "]" + " : " + definition;
+        return word + " " + "[" + partOfSpeech.toString() + "]" + " : " + definition;
     }
 }
