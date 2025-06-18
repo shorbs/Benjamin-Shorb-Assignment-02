@@ -13,10 +13,10 @@ public class MyDictionary {
         loadDictionary();
     }
 
-    public void loadDictionary(){
+    public void loadDictionary() {
     }
 
-    public void runInterface(){
+    public void runInterface() {
         int i = 1;
 
         System.out.println("! Loading data...");
@@ -31,21 +31,102 @@ public class MyDictionary {
         Scanner scanner = new Scanner(System.in);
         String input;
         while (true) {
-            System.out.print("Search ["+i+"]: ");
+            System.out.print("Search [" + i + "]: ");
             input = scanner.nextLine();
             if (exits.contains(input.toLowerCase())) {
                 break;
             }
-            System.out.println("|");
-            if(input.equalsIgnoreCase("!help") ||  input.equalsIgnoreCase("")){
-                System.out.println("Instructions to be implemented");
+            if (input.equalsIgnoreCase("!help") || input.equalsIgnoreCase("")) {
+                displayHowTo();
+            } else {
+                List<String> parameters = getParameters(input);
             }
-            System.out.println("|");
             i++;
         }
         System.out.println("\n -----THANK YOU-----");
     }
 
-    //IMPLEMENT GET ARGUMENTS METHOD
-    //IMPLEMENT GET TOTAL DEFINITIONS METHOD
+    //IMPLEMENT GET PARAMETERS METHOD
+    private List<String> getParameters(String input) {
+        String[] tokens = input.toLowerCase().trim().split("\\s+");
+        List<String> parameters = new ArrayList<>();
+
+        String keyword = tokens[0];
+        parameters.add(keyword);
+
+        String partOfSpeech = null;
+        boolean distinct = false;
+        boolean reverse = false;
+
+        //FIRST PARAMETER
+        if (tokens.length > 1) {
+            String param2 = tokens[1];
+            if (PartOfSpeech.validPartOfSpeech(param2)) {
+                partOfSpeech = param2;
+            } else if (param2.equals("distinct")) {
+                distinct = true;
+            } else if (param2.equals("reverse")) {
+                reverse = true;
+            } else {
+                System.out.println("|");
+                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT a part of speech.");
+                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT 'distinct'.");
+                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT 'reverse'.");
+                System.out.println("<The entered 2nd parameter '" + param2 + "' was disregarded.");
+                System.out.println("<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                System.out.println("|");
+            }
+        }
+        if (tokens.length > 2) {
+            String param3 = tokens[2];
+            if (param3.equals("distinct")) {
+                distinct = true;
+            } else if (param3.equals("reverse")) {
+                reverse = true;
+            } else {
+                System.out.println("|");
+                System.out.println("<The entered 3rd parameter '" + param3 + "' is NOT 'distinct'.");
+                System.out.println("<The entered 3rd parameter '" + param3 + "' is NOT 'reverse'.");
+                System.out.println("<The entered 3rd parameter '" + param3 + "' was disregarded.");
+                System.out.println("<The 3rd parameter should be 'distinct' or 'reverse'.>");
+                System.out.println("|");
+            }
+        }
+        if (tokens.length > 3) {
+            String param4 = tokens[3];
+            if (param4.equals("reverse")) {
+                reverse = true;
+            } else {
+                System.out.println("|");
+                System.out.println("<The entered 4th parameter '" + param4 + "' is NOT 'reverse'.");
+                System.out.println("<The entered 4th parameter '" + param4 + "' was disregarded.");
+                System.out.println("<The 4th parameter should be 'reverse'.>");
+                System.out.println("|");
+            }
+        }
+        if (tokens.length > 4) {
+            displayHowTo();
+        }
+
+        if (partOfSpeech != null) {
+            parameters.add(partOfSpeech);
+        }
+        if (distinct) {
+            parameters.add("distinct");
+        }
+        if (reverse) {
+            parameters.add("reverse");
+        }
+        return parameters;
+    }
+
+    public void displayHowTo() {
+        System.out.println(
+                "|\n" +
+                "PARAMETER HOW-TO, please enter:\n" +
+                "1. A search key -then 2. An optional part of speech -then\n" +
+                "3. An optional 'distinct' -then 4. An optional 'reverse'\n" +
+                "|"
+        );
+    }
 }
