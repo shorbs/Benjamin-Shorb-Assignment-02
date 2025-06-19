@@ -92,7 +92,9 @@ public class MyDictionary {
                     displayHowTo();
                 } else {
                     if(!queryDictionary(getParameters(input))) {
-                        System.out.println("<NOT FOUND> To be considered for the next release. Thank you.");
+                        System.out.println("\t|");
+                        System.out.println("\t <NOT FOUND> To be considered for the next release. Thank you.");
+                        System.out.println("\t|");
                         displayHowTo();
                     }
                 }
@@ -100,7 +102,9 @@ public class MyDictionary {
             }
             System.out.println("\n -----THANK YOU-----");
         } catch (IOException e){
-            System.out.println("<NOT FOUND> Please enter a valid file path.");
+            System.out.println("\t|");
+            System.out.println("\t <NOT FOUND> Please enter a valid file path.");
+            System.out.println("\t|");
         }
 
     }
@@ -128,11 +132,11 @@ public class MyDictionary {
             if(tempList.isEmpty()){
                 return false;
             }
-            System.out.println("|");
+            System.out.println("\t|");
             for(DictionaryEntry e : tempList){
-                System.out.println(e.toString());
+                System.out.println("\t " + e.toString());
             }
-            System.out.println("|");
+            System.out.println("\t|");
             return true;
         }
 
@@ -200,13 +204,13 @@ public class MyDictionary {
             } else if (param2.equals("reverse")) {
                 reverse = true;
             } else {
-                System.out.println("|");
-                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT a part of speech.");
-                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT 'distinct'.");
-                System.out.println("<The entered 2nd parameter '" + param2 + "' is NOT 'reverse'.");
-                System.out.println("<The entered 2nd parameter '" + param2 + "' was disregarded.");
-                System.out.println("<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
-                System.out.println("|");
+                System.out.println("\t|");
+                System.out.println("\t <The entered 2nd parameter '" + param2 + "' is NOT a part of speech.");
+                System.out.println("\t <The entered 2nd parameter '" + param2 + "' is NOT 'distinct'.");
+                System.out.println("\t <The entered 2nd parameter '" + param2 + "' is NOT 'reverse'.");
+                System.out.println("\t <The entered 2nd parameter '" + param2 + "' was disregarded.");
+                System.out.println("\t <The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                System.out.println("\t|");
             }
         }
         if (tokens.length > 2) {
@@ -216,12 +220,12 @@ public class MyDictionary {
             } else if (param3.equals("reverse")) {
                 reverse = true;
             } else {
-                System.out.println("|");
-                System.out.println("<The entered 3rd parameter '" + param3 + "' is NOT 'distinct'.");
-                System.out.println("<The entered 3rd parameter '" + param3 + "' is NOT 'reverse'.");
-                System.out.println("<The entered 3rd parameter '" + param3 + "' was disregarded.");
-                System.out.println("<The 3rd parameter should be 'distinct' or 'reverse'.>");
-                System.out.println("|");
+                System.out.println("\t|");
+                System.out.println("\t <The entered 3rd parameter '" + param3 + "' is NOT 'distinct'.");
+                System.out.println("\t <The entered 3rd parameter '" + param3 + "' is NOT 'reverse'.");
+                System.out.println("\t <The entered 3rd parameter '" + param3 + "' was disregarded.");
+                System.out.println("\t <The 3rd parameter should be 'distinct' or 'reverse'.>");
+                System.out.println("\t|");
             }
         }
         if (tokens.length > 3) {
@@ -229,11 +233,11 @@ public class MyDictionary {
             if (param4.equals("reverse")) {
                 reverse = true;
             } else {
-                System.out.println("|");
-                System.out.println("<The entered 4th parameter '" + param4 + "' is NOT 'reverse'.");
-                System.out.println("<The entered 4th parameter '" + param4 + "' was disregarded.");
-                System.out.println("<The 4th parameter should be 'reverse'.>");
-                System.out.println("|");
+                System.out.println("\t|");
+                System.out.println("\t <The entered 4th parameter '" + param4 + "' is NOT 'reverse'.");
+                System.out.println("\t <The entered 4th parameter '" + param4 + "' was disregarded.");
+                System.out.println("\t <The 4th parameter should be 'reverse'.>");
+                System.out.println("\t|");
             }
         }
         if (tokens.length > 4) {
@@ -253,11 +257,11 @@ public class MyDictionary {
 
     public void displayHowTo() {
         System.out.println(
-                "|\n" +
-                "PARAMETER HOW-TO, please enter:\n" +
-                "1. A search key -then 2. An optional part of speech -then\n" +
-                "3. An optional 'distinct' -then 4. An optional 'reverse'\n" +
-                "|"
+                "\t|\n" +
+                "\t PARAMETER HOW-TO, please enter:\n" +
+                "\t 1. A search key -then 2. An optional part of speech -then\n" +
+                "\t 3. An optional 'distinct' -then 4. An optional 'reverse'\n" +
+                "\t|"
         );
     }
 }
