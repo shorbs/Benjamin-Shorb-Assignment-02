@@ -15,12 +15,13 @@ public class MyDictionary {
     private int keyWords = 0;
     private int definitions = 0;
 
-    MyDictionary() {}
+    MyDictionary() {
+    }
 
     public void loadDictionary() {
-        for(DataSource data : DataSource.values()) {
+        for (DataSource data : DataSource.values()) {
             DictionaryEntry e = new DictionaryEntry(data.toEntry());
-            if(!myDictionary.containsKey(e.getWord())) {
+            if (!myDictionary.containsKey(e.getWord())) {
                 myDictionary.put(e.getWord(), new ArrayList<>());
                 keyWords++;
             }
@@ -28,7 +29,7 @@ public class MyDictionary {
             definitions++;
         }
         //Sort
-        for(String key : myDictionary.keySet()) {
+        for (String key : myDictionary.keySet()) {
             myDictionary.get(key).sort(Comparator.comparing(
                     entry -> entry.getWord() + entry.getPartOfSpeech().toString() + entry.getDefinition()
             ));
@@ -58,10 +59,10 @@ public class MyDictionary {
             if (input.equalsIgnoreCase("!help") || input.isBlank()) {
                 displayHowTo();
             } else {
-               if(!queryDictionary(getParameters(input))) {
-                   System.out.println("<NOT FOUND> To be considered for the next release. Thank you.");
-                   displayHowTo();
-               }
+                if (!queryDictionary(getParameters(input))) {
+                    System.out.println("<NOT FOUND> To be considered for the next release. Thank you.");
+                    displayHowTo();
+                }
             }
             i++;
         }
@@ -81,7 +82,7 @@ public class MyDictionary {
         System.out.println();
 
         String filePath = "src/inputs.txt";
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String input;
             while ((input = br.readLine()) != null) {
                 System.out.println("Search [" + i + "]: " + input);
@@ -91,7 +92,7 @@ public class MyDictionary {
                 if (input.equalsIgnoreCase("!help") || input.isBlank()) {
                     displayHowTo();
                 } else {
-                    if(!queryDictionary(getParameters(input))) {
+                    if (!queryDictionary(getParameters(input))) {
                         System.out.println("\t|");
                         System.out.println("\t <NOT FOUND> To be considered for the next release. Thank you.");
                         System.out.println("\t|");
@@ -101,7 +102,7 @@ public class MyDictionary {
                 i++;
             }
             System.out.println("\n -----THANK YOU-----");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("\t|");
             System.out.println("\t <NOT FOUND> Please enter a valid file path.");
             System.out.println("\t|");
@@ -110,30 +111,30 @@ public class MyDictionary {
     }
 
     private boolean queryDictionary(List<String> parameters) {
-        if(parameters.isEmpty()){
+        if (parameters.isEmpty()) {
             displayHowTo();
             return false;
         }
         String keyWord = parameters.get(0);
-        if(myDictionary.containsKey(keyWord)) {
+        if (myDictionary.containsKey(keyWord)) {
             parameters.remove(0);
             List<DictionaryEntry> tempList = new ArrayList<>(myDictionary.get(keyWord));
-            if(!parameters.isEmpty()){
-                if(PartOfSpeech.validPartOfSpeech(parameters.get(0))) {
+            if (!parameters.isEmpty()) {
+                if (PartOfSpeech.validPartOfSpeech(parameters.get(0))) {
                     tempList = getParsedByPartOfSpeech(parameters.get(0), tempList);
                 }
-                if(parameters.contains("distinct")){
+                if (parameters.contains("distinct")) {
                     tempList = getDistinctEntries(tempList);
                 }
-                if(parameters.contains("reverse")) {
+                if (parameters.contains("reverse")) {
                     tempList = getReverseEntries(tempList);
                 }
             }
-            if(tempList.isEmpty()){
+            if (tempList.isEmpty()) {
                 return false;
             }
             System.out.println("\t|");
-            for(DictionaryEntry e : tempList){
+            for (DictionaryEntry e : tempList) {
                 System.out.println("\t " + e.toString());
             }
             System.out.println("\t|");
@@ -144,7 +145,7 @@ public class MyDictionary {
     }
 
     private List<DictionaryEntry> getParsedByPartOfSpeech(String partOfSpeechToFind, List<DictionaryEntry> entries) {
-        if (entries.isEmpty()){
+        if (entries.isEmpty()) {
             return null;
         }
         entries.removeIf(e -> !partOfSpeechToFind.equalsIgnoreCase((e.getPartOfSpeech().name())));
@@ -152,13 +153,13 @@ public class MyDictionary {
     }
 
     private List<DictionaryEntry> getDistinctEntries(List<DictionaryEntry> entries) {
-        if(entries.isEmpty()){
+        if (entries.isEmpty()) {
             return null;
         }
         List<String> seenDefinitions = new ArrayList<>();
         List<DictionaryEntry> entriesDistinct = new ArrayList<>();
-        for(DictionaryEntry entry : entries){
-            if(!seenDefinitions.contains(entry.toString())){
+        for (DictionaryEntry entry : entries) {
+            if (!seenDefinitions.contains(entry.toString())) {
                 seenDefinitions.add(entry.toString());
                 entriesDistinct.add(entry);
             }
@@ -167,12 +168,12 @@ public class MyDictionary {
     }
 
     private List<DictionaryEntry> getReverseEntries(List<DictionaryEntry> entries) {
-        if(entries.isEmpty()){
+        if (entries.isEmpty()) {
             return null;
         }
         int left = 0;
         int right = entries.size() - 1;
-        while(left < right){
+        while (left < right) {
             DictionaryEntry temp = entries.get(left);
             entries.set(left, entries.get(right));
             entries.set(right, temp);
@@ -187,7 +188,7 @@ public class MyDictionary {
         String[] tokens = input.toLowerCase().trim().split("\\s+");
         List<String> parameters = new ArrayList<>();
 
-        String keyword = tokens[0].substring(0,1).toUpperCase() + tokens[0].substring(1);
+        String keyword = tokens[0].substring(0, 1).toUpperCase() + tokens[0].substring(1);
         parameters.add(keyword);
 
         String partOfSpeech = null;
@@ -258,10 +259,10 @@ public class MyDictionary {
     public void displayHowTo() {
         System.out.println(
                 "\t|\n" +
-                "\t PARAMETER HOW-TO, please enter:\n" +
-                "\t 1. A search key -then 2. An optional part of speech -then\n" +
-                "\t 3. An optional 'distinct' -then 4. An optional 'reverse'\n" +
-                "\t|"
+                        "\t PARAMETER HOW-TO, please enter:\n" +
+                        "\t 1. A search key -then 2. An optional part of speech -then\n" +
+                        "\t 3. An optional 'distinct' -then 4. An optional 'reverse'\n" +
+                        "\t|"
         );
     }
 }

@@ -1,12 +1,12 @@
-public class  DictionaryEntry {
+public class DictionaryEntry {
     private String word;
     private PartOfSpeech partOfSpeech;
     private String definition;
 
     DictionaryEntry(DictionaryEntry entry) {
-            this.word = entry.getWord();
-            this.definition = entry.getDefinition();
-            this.partOfSpeech = entry.getPartOfSpeech();
+        this.word = entry.getWord();
+        this.definition = entry.getDefinition();
+        this.partOfSpeech = entry.getPartOfSpeech();
     }
 
     DictionaryEntry(String word, PartOfSpeech partOfSpeech, String definition) {

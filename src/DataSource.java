@@ -1,4 +1,4 @@
-public enum DataSource{
+public enum DataSource {
     ARROW1("Arrow", PartOfSpeech.NOUN, "Here is one arrow: <IMG> -=>> </IMG>"),
 
     BOOK1("Book", PartOfSpeech.NOUN, "A set of pages."),
@@ -7,8 +7,8 @@ public enum DataSource{
     BOOK4("Book", PartOfSpeech.VERB, "To arrange something on a particular date."),
 
     DISTINCT1("Distinct", PartOfSpeech.ADJECTIVE, "Unique. No duplicates. Clearly different or of a different kind."),
-    DISTINCT2("Distinct", PartOfSpeech.ADJECTIVE,  "Familiar. Worked in Java."),
-    DISTINCT3("Distinct", PartOfSpeech.ADVERB,"Uniquely. Written \"distinctly\"."),
+    DISTINCT2("Distinct", PartOfSpeech.ADJECTIVE, "Familiar. Worked in Java."),
+    DISTINCT3("Distinct", PartOfSpeech.ADVERB, "Uniquely. Written \"distinctly\"."),
     DISTINCT4("Distinct", PartOfSpeech.NOUN, "A keyword in this assignment."),
     DISTINCT5("Distinct", PartOfSpeech.NOUN, "A keyword in this assignment."),
     DISTINCT6("Distinct", PartOfSpeech.NOUN, "A keyword in this assignment."),
@@ -41,10 +41,7 @@ public enum DataSource{
     REVERSE12("Reverse", PartOfSpeech.VERB, "Revoke ruling."),
     REVERSE13("Reverse", PartOfSpeech.VERB, "To be updated..."),
     REVERSE14("Reverse", PartOfSpeech.VERB, "To be updated..."),
-    REVERSE15("Reverse", PartOfSpeech.VERB, "Turn something inside out.")
-
-
-            ;
+    REVERSE15("Reverse", PartOfSpeech.VERB, "Turn something inside out.");
     /*
     BOOK1("Book", PartOfSpeech.NOUN, "A set of pages."),
     BOOK3("Book", PartOfSpeech.VERB, "To arrange for someone to have a seat on a plane."),
