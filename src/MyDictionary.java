@@ -1,4 +1,3 @@
-import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 public class MyDictionary {
@@ -56,7 +55,10 @@ public class MyDictionary {
             if (input.equalsIgnoreCase("!help") || input.isBlank()) {
                 displayHowTo();
             } else {
-               queryDictionary(getParameters(input));
+               if(!queryDictionary(getParameters(input))) {
+                   System.out.println("<NOT FOUND> To be considered for the next release. Thank you.");
+                   displayHowTo();
+               }
             }
             i++;
         }
@@ -69,16 +71,72 @@ public class MyDictionary {
             return false;
         }
         String keyWord = parameters.get(0);
-        System.out.println("|");
-        List<DictionaryEntry> tempList = new ArrayList(myDictionary.get(keyWord));
-        if(parameters.contains("reverse")) {
-
+        if(myDictionary.containsKey(keyWord)) {
+            parameters.remove(0);
+            List<DictionaryEntry> tempList = new ArrayList<>(myDictionary.get(keyWord));
+            if(!parameters.isEmpty()){
+                if(PartOfSpeech.validPartOfSpeech(parameters.get(0))) {
+                    tempList = getParsedByPartOfSpeech(parameters.get(0), tempList);
+                }
+                if(parameters.contains("distinct")){
+                    tempList = getDistinctEntries(tempList);
+                }
+                if(parameters.contains("reverse")) {
+                    tempList = getReverseEntries(tempList);
+                }
+            }
+            if(tempList.isEmpty()){
+                return false;
+            }
+            System.out.println("|");
+            for(DictionaryEntry e : tempList){
+                System.out.println(e.toString());
+            }
+            System.out.println("|");
+            return true;
         }
-        System.out.println("|");
 
         return false;
     }
 
+    private List<DictionaryEntry> getParsedByPartOfSpeech(String partOfSpeechToFind, List<DictionaryEntry> entries) {
+        if (entries.isEmpty()){
+            return null;
+        }
+        entries.removeIf(e -> !partOfSpeechToFind.equalsIgnoreCase((e.getPartOfSpeech().name())));
+        return entries;
+    }
+
+    private List<DictionaryEntry> getDistinctEntries(List<DictionaryEntry> entries) {
+        if(entries.isEmpty()){
+            return null;
+        }
+        List<String> seenDefinitions = new ArrayList<>();
+        List<DictionaryEntry> entriesDistinct = new ArrayList<>();
+        for(DictionaryEntry entry : entries){
+            if(!seenDefinitions.contains(entry.toString())){
+                seenDefinitions.add(entry.toString());
+                entriesDistinct.add(entry);
+            }
+        }
+        return entriesDistinct;
+    }
+
+    private List<DictionaryEntry> getReverseEntries(List<DictionaryEntry> entries) {
+        if(entries.isEmpty()){
+            return null;
+        }
+        int left = 0;
+        int right = entries.size() - 1;
+        while(left < right){
+            DictionaryEntry temp = entries.get(left);
+            entries.set(left, entries.get(right));
+            entries.set(right, temp);
+            left++;
+            right--;
+        }
+        return entries;
+    }
 
     //IMPLEMENT GET PARAMETERS METHOD
     private List<String> getParameters(String input) {
