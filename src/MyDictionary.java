@@ -1,3 +1,4 @@
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 public class MyDictionary {
@@ -69,10 +70,9 @@ public class MyDictionary {
         }
         String keyWord = parameters.get(0);
         System.out.println("|");
-        if(myDictionary.containsKey(keyWord)) {
-            for(DictionaryEntry e : myDictionary.get(keyWord)) {
+        List<DictionaryEntry> tempList = new ArrayList(myDictionary.get(keyWord));
+        if(parameters.contains("reverse")) {
 
-            }
         }
         System.out.println("|");
 
