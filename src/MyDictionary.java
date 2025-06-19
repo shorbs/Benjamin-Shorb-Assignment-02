@@ -55,8 +55,7 @@ public class MyDictionary {
             if (input.equalsIgnoreCase("!help") || input.isBlank()) {
                 displayHowTo();
             } else {
-                List<String> parameters = getParameters(input);
-
+               queryDictionary(getParameters(input));
             }
             i++;
         }
@@ -64,9 +63,19 @@ public class MyDictionary {
     }
 
     private boolean queryDictionary(List<String> parameters) {
-        if(parameters.size() > 0){
-
+        if(parameters.isEmpty()){
+            displayHowTo();
+            return false;
         }
+        String keyWord = parameters.get(0);
+        System.out.println("|");
+        if(myDictionary.containsKey(keyWord)) {
+            for(DictionaryEntry e : myDictionary.get(keyWord)) {
+
+            }
+        }
+        System.out.println("|");
+
         return false;
     }
 
@@ -76,7 +85,7 @@ public class MyDictionary {
         String[] tokens = input.toLowerCase().trim().split("\\s+");
         List<String> parameters = new ArrayList<>();
 
-        String keyword = tokens[0];
+        String keyword = tokens[0].substring(0,1).toUpperCase() + tokens[0].substring(1);
         parameters.add(keyword);
 
         String partOfSpeech = null;
