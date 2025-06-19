@@ -1,4 +1,7 @@
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class MyDictionary {
     private final Map<String, List<DictionaryEntry>> myDictionary = new HashMap<>();
@@ -63,6 +66,43 @@ public class MyDictionary {
             i++;
         }
         System.out.println("\n -----THANK YOU-----");
+    }
+
+    public void readFromFile() {
+        int i = 1;
+
+        System.out.println("! Loading data...");
+        loadDictionary();
+        System.out.println("! Loading completed...");
+        System.out.println();
+        System.out.println("===== DICTIONARY 340 JAVA =====");
+        System.out.println("----- Keywords: " + keyWords);
+        System.out.println("----- Definitions: " + definitions);
+        System.out.println();
+
+        String filePath = "src/inputs.txt";
+        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String input;
+            while ((input = br.readLine()) != null) {
+                System.out.println("Search [" + i + "]: " + input);
+                if (exits.contains(input.toLowerCase())) {
+                    break;
+                }
+                if (input.equalsIgnoreCase("!help") || input.isBlank()) {
+                    displayHowTo();
+                } else {
+                    if(!queryDictionary(getParameters(input))) {
+                        System.out.println("<NOT FOUND> To be considered for the next release. Thank you.");
+                        displayHowTo();
+                    }
+                }
+                i++;
+            }
+            System.out.println("\n -----THANK YOU-----");
+        } catch (IOException e){
+            System.out.println("<NOT FOUND> Please enter a valid file path.");
+        }
+
     }
 
     private boolean queryDictionary(List<String> parameters) {
