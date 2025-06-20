@@ -1,3 +1,14 @@
+/****************************************************************
+ *
+ * File: DictionaryEntry.java
+ * By: Benjamin Shorb
+ * Date: 6/19/2025
+ *
+ * Description: Dictionary entry class that is used by the MyDictionary class
+ * to hold individual dictionary entries that is loaded in by the data source
+ * enum
+ *
+ ****************************************************************/
 public class DictionaryEntry {
     private String word;
     private PartOfSpeech partOfSpeech;

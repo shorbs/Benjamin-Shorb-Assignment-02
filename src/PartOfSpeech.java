@@ -1,3 +1,13 @@
+/****************************************************************
+ *
+ * File: PartOfSpeech.java
+ * By: Benjamin Shorb
+ * Date: 6/19/2025
+ *
+ * Description: Simple part of speech enum that holds the available
+ * parts of speech in the program
+ *
+ ****************************************************************/
 public enum PartOfSpeech {
     NOUN,
     VERB,
@@ -23,5 +33,4 @@ public enum PartOfSpeech {
         }
         return false;
     }
-    //IMPLEMENT CHECK FOR "TO BE IMPLEMENTED"
 }

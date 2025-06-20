@@ -1,3 +1,15 @@
+/****************************************************************
+ *
+ * File: MyDictionary.java
+ * By: Benjamin Shorb
+ * Date: 6/19/2025
+ *
+ * Description: MyDictionary class that implements a hashmap that has each individual word
+ * from the dictionary as a key and a list of the associated dictionary entries to that word as a list
+ * This also implements the interface for the user to interact with the data and display as they'd like
+ * with the given parameters.
+ *
+ ****************************************************************/
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,6 +28,14 @@ public class MyDictionary {
     private int definitions = 0;
 
     MyDictionary() {
+        System.out.println("! Loading data...");
+        loadDictionary();
+        System.out.println("! Loading completed...");
+        System.out.println();
+        System.out.println("===== DICTIONARY 340 JAVA =====");
+        System.out.println("----- Keywords: " + keyWords);
+        System.out.println("----- Definitions: " + definitions);
+        System.out.println();
     }
 
     public void loadDictionary() {
@@ -71,16 +91,6 @@ public class MyDictionary {
 
     public void readFromFile() {
         int i = 1;
-
-        System.out.println("! Loading data...");
-        loadDictionary();
-        System.out.println("! Loading completed...");
-        System.out.println();
-        System.out.println("===== DICTIONARY 340 JAVA =====");
-        System.out.println("----- Keywords: " + keyWords);
-        System.out.println("----- Definitions: " + definitions);
-        System.out.println();
-
         String filePath = "src/inputs.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String input;
@@ -93,9 +103,6 @@ public class MyDictionary {
                     displayHowTo();
                 } else {
                     if (!queryDictionary(getParameters(input))) {
-                        System.out.println("\t|");
-                        System.out.println("\t <NOT FOUND> To be considered for the next release. Thank you.");
-                        System.out.println("\t|");
                         displayHowTo();
                     }
                 }
@@ -112,7 +119,6 @@ public class MyDictionary {
 
     private boolean queryDictionary(List<String> parameters) {
         if (parameters.isEmpty()) {
-            displayHowTo();
             return false;
         }
         String keyWord = parameters.get(0);
@@ -131,6 +137,9 @@ public class MyDictionary {
                 }
             }
             if (tempList.isEmpty()) {
+                System.out.println("\t|");
+                System.out.println("\t <NOT FOUND> To be considered for the next release. Thank you.");
+                System.out.println("\t|");
                 return false;
             }
             System.out.println("\t|");
@@ -140,7 +149,13 @@ public class MyDictionary {
             System.out.println("\t|");
             return true;
         }
-
+        else if (keyWord.equals("TOO MANY PARAMS")){
+            return false;
+        }else{
+            System.out.println("\t|");
+            System.out.println("\t <NOT FOUND> To be considered for the next release. Thank you.");
+            System.out.println("\t|");
+        }
         return false;
     }
 
@@ -187,7 +202,10 @@ public class MyDictionary {
     private List<String> getParameters(String input) {
         String[] tokens = input.toLowerCase().trim().split("\\s+");
         List<String> parameters = new ArrayList<>();
-
+        if (tokens.length > 4) {
+            parameters.add("TOO MANY PARAMS");
+            return parameters;
+        }
         String keyword = tokens[0].substring(0, 1).toUpperCase() + tokens[0].substring(1);
         parameters.add(keyword);
 
